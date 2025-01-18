@@ -21,14 +21,6 @@
     </table>
 
     <script>
-        const faturamentoData = [
-            { "estado": "SP", "faturamento": 67836.43 },
-            { "estado": "RJ", "faturamento": 36678.66 },
-            { "estado": "MG", "faturamento": 29229.88 },
-            { "estado": "ES", "faturamento": 27165.48 },
-            { "estado": "Outros", "faturamento": 19849.53 }
-        ]
-
         class FaturamentoLinhaFactory {
             static criarLinha (estado, faturamento) {
                 const linha = document.createElement('tr')
@@ -45,14 +37,22 @@
             }
         }
 
-        function preencherTabela () {
+        function preencherTabela (data) {
             const tabelaCorpo = document.querySelector("#faturamentoTable tbody")
-            faturamentoData.forEach(item => {
+            data.forEach(item => {
                 const linha = FaturamentoLinhaFactory.criarLinha(item.estado, item.faturamento)
                 tabelaCorpo.appendChild(linha)
             })
         }
-        window.onload = preencherTabela;
+
+        fetch('./assets/faturamento-mensal-distribuidora.json')
+            .then(response => response.json())
+            .then(data => {
+                preencherTabela(data)
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o JSON:', error)
+            });
     </script>
 </body>
 
