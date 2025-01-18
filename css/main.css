@@ -1,0 +1,26 @@
+ table {
+            width: 60%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        td {
+            font-size: 1.1em;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
