@@ -21,7 +21,7 @@
     </table>
 
     <script>
-        class FaturamentoLinhaFactory {
+       class FaturamentoLinhaFactory {
             static criarLinha (estado, faturamento) {
                 const linha = document.createElement('tr')
 
@@ -30,12 +30,13 @@
                 linha.appendChild(celulaEstado)
 
                 const celulaFaturamento = document.createElement('td')
-                celulaFaturamento.textContent = faturamento.toFixed(2).replace('.', ',')
+                celulaFaturamento.textContent = `R$ ${faturamento.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
                 linha.appendChild(celulaFaturamento)
 
                 return linha
             }
         }
+
 
         function preencherTabela (data) {
             const tabelaCorpo = document.querySelector("#faturamentoTable tbody")

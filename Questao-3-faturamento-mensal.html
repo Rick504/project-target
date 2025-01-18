@@ -22,36 +22,44 @@
 
     <script>
         class RowFactory {
-            createRow (dia, valor) {
-                const row = document.createElement('tr')
-                const diaCell = document.createElement('td')
-                diaCell.textContent = dia
-                row.appendChild(diaCell)
-                const valorCell = document.createElement('td')
-                valorCell.textContent = valor.toFixed(4)
-                row.appendChild(valorCell)
-                return row
+                createRow (dia, valor) {
+                    const row = document.createElement('tr')
+                    const diaCell = document.createElement('td')
+                    diaCell.textContent = dia
+                    row.appendChild(diaCell)
+
+                    const valorCell = document.createElement('td')
+                    valorCell.textContent = `R$ ${valor.toLocaleString('pt-BR', { minimumFractionDigits: 4, maximumFractionDigits: 4 })}`
+                    if (valor === 0) {
+                        valorCell.textContent = 'R$ 0,00'
+                    } else {
+                        valorCell.textContent = `R$ ${valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                    }
+                    row.appendChild(valorCell)
+
+                    return row
+                }
             }
-        }
 
-        function populateTable (data) {
-            const tableBody = document.getElementById('table-values-day')
-            const rowFactory = new RowFactory()
+            function populateTable (data) {
+                const tableBody = document.getElementById('table-values-day')
+                const rowFactory = new RowFactory()
 
-            data.forEach(item => {
-                const row = rowFactory.createRow(item.dia, item.valor)
-                tableBody.appendChild(row)
-            })
-        }
+                data.forEach(item => {
+                    const row = rowFactory.createRow(item.dia, item.valor)
+                    tableBody.appendChild(row)
+                })
+            }
 
-        fetch('./assets/faturamento-mensal.json')
-            .then(response => response.json())
-            .then(data => {
-                populateTable(data)
-            })
-            .catch(error => {
-                console.error('Erro ao carregar o JSON:', error)
-            });
+            fetch('./assets/faturamento-mensal.json')
+                .then(response => response.json())
+                .then(data => {
+                    populateTable(data)
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar o JSON:', error)
+                });
+
     </script>
 </body>
 
